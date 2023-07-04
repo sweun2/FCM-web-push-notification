@@ -1,6 +1,7 @@
 package com.example.FCMTest.fcm;
 
 import com.example.FCMTest.user.repository.UserRepository;
+import com.google.firebase.messaging.FirebaseMessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,8 @@ public class NotificationController {
 
     private final NotificationService notificationService;
     private final UserRepository userRepository;
-
-
-
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody String token, @RequestBody String userId) {
+    public ResponseEntity register(String token, String userId) throws Exception {
         notificationService.register(Long.valueOf(userId), token);
         return ResponseEntity.ok().build();
     }
